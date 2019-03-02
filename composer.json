@@ -1,0 +1,22 @@
+{
+    "name": "demokn/yii2-api",
+    "description": "使用 yii2 开发 api 接口时用的扩展, 包含常用的输入验证, 格式化响应, ActiveRecord基类, 日志流Target等",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Demokn Yang",
+            "email": "demo.knyang@gmail.com"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "^2.0.15",
+        "illuminate/support": "^5.8",
+        "illuminate/validation": "^5.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "demokn\\api\\": "src/"
+        }
+    }
+}
