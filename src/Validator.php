@@ -21,8 +21,7 @@ class Validator
 
     protected function createFactory()
     {
-        $fileLoader = new FileLoader(new Filesystem(), dirname(dirname(__FILE__)) . '/messages');
-        //$fileLoader->addNamespace('messages', dirname(dirname(__FILE__)) . '/messages');
+        $fileLoader = new FileLoader(new Filesystem(), dirname(__FILE__) . '/lang');
         $fileLoader->load('en', 'validation');
         $translator = new Translator($fileLoader, 'en');
 

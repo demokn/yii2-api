@@ -3,6 +3,7 @@
 namespace demokn\api;
 
 use Yii;
+use yii\base\UserException;
 use yii\filters\auth\CompositeAuth;
 use yii\filters\auth\HttpHeaderAuth;
 use yii\filters\ContentNegotiator;
@@ -75,7 +76,7 @@ class ApiController extends Controller
                 $message .= ': ' . $validator->errors()->first();
             }
 
-            throw new ValidationException($message);
+            throw new UserException($message);
         }
 
         $results = [];
