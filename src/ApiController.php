@@ -27,7 +27,7 @@ class ApiController extends Controller
                 'formats' => [
                     'application/xml' => Response::FORMAT_XML,
                     // The reason for putting `json` to second position is
-                    // let frontend developers specify `Accept` header themselves.
+                    // to let frontend developers specify `Accept` header themselves.
                     'application/json' => Response::FORMAT_JSON,
                 ],
             ],

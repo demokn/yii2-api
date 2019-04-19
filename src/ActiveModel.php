@@ -56,7 +56,27 @@ class ActiveModel extends ActiveRecord
         return $model;
     }
 
-    public static function firstOrFail($condition)
+    /**
+     * @param array $attributes
+     * @return static
+     * @throws ModelNotFoundException
+     */
+    public static function firstOrFail(array $attributes)
+    {
+        $model = static::find()->where($attributes)->one();
+        if (!$model) {
+            throw new ModelNotFoundException(sprintf('%s(%s) not found.', static::class, var_export($attributes, true)));
+        }
+
+        return $model;
+    }
+
+    /**
+     * @param $condition
+     * @return static
+     * @throws ModelNotFoundException
+     */
+    public static function findOneOrFail($condition)
     {
         $model = static::findOne($condition);
         if (!$model) {
@@ -66,6 +86,11 @@ class ActiveModel extends ActiveRecord
         return $model;
     }
 
+    /**
+     * @param bool $runValidation
+     * @param null $attributeNames
+     * @throws Exception
+     */
     public function saveOrFail($runValidation = true, $attributeNames = null)
     {
         $isSucceeded = $this->save($runValidation, $attributeNames);
@@ -77,6 +102,11 @@ class ActiveModel extends ActiveRecord
         }
     }
 
+    /**
+     * @throws Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function deleteOrFail()
     {
         $rows = $this->delete();
@@ -86,6 +116,13 @@ class ActiveModel extends ActiveRecord
         }
     }
 
+    /**
+     * @param bool $runValidation
+     * @param array|null $attributeNames
+     * @throws Exception
+     * @throws \Throwable
+     * @throws \yii\db\StaleObjectException
+     */
     public function updateOrFail($runValidation = true, array $attributeNames = null)
     {
         $rows = $this->update($runValidation, $attributeNames);
@@ -97,6 +134,10 @@ class ActiveModel extends ActiveRecord
         }
     }
 
+    /**
+     * @param array $attributes
+     * @throws Exception
+     */
     public function updateAttributesOrFail(array $attributes)
     {
         // Note that this method will **not** perform data validation and will **not** trigger events.

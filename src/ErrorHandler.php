@@ -6,7 +6,6 @@ use Yii;
 use yii\base\UserException;
 use yii\web\HttpException;
 use yii\web\Response;
-use yii\web\UnauthorizedHttpException;
 
 class ErrorHandler extends \yii\web\ErrorHandler
 {

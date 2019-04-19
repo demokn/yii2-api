@@ -9,7 +9,7 @@ class ActiveQuery extends \yii\db\ActiveQuery
      * @return array|\yii\db\ActiveRecord|null
      * @throws ModelNotFoundException
      */
-    public function firstOrFail($db = null)
+    public function oneOrFail($db = null)
     {
         $model = $this->one($db);
         if (!$model) {
