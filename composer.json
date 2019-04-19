@@ -5,14 +5,15 @@
     "license": "MIT",
     "authors": [
         {
-            "name": "Demokn Yang",
+            "name": "demokn",
             "email": "demo.knyang@gmail.com"
         }
     ],
     "require": {
         "yiisoft/yii2": "^2.0.15",
         "illuminate/support": "^5.8",
-        "illuminate/validation": "^5.8"
+        "illuminate/validation": "^5.8",
+        "spatie/fractalistic": "^2.7"
     },
     "autoload": {
         "psr-4": {
