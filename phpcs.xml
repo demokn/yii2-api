@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ruleset name="PHPCS Coding Standards for demokn/yii2-api">
+    <description>Coding standards for demokn/yii2-api</description>
+
+    <arg name="extensions" value="php" />
+    <arg name="colors" />
+    <!-- Show progress of the run -->
+    <arg value="p" />
+
+    <rule ref="PSR2">
+        <!-- Ignore line length sniffer -->
+        <exclude name="Generic.Files.LineLength" />
+    </rule>
+
+    <exclude-pattern>/vendor/</exclude-pattern>
+</ruleset>
