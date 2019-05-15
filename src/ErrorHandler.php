@@ -13,15 +13,24 @@ class ErrorHandler extends \yii\web\ErrorHandler
 
     protected function renderException($exception)
     {
-        $response = Yii::$app->getResponse();
-        // reset parameters of response to avoid interference with partially created response data
-        // in case the error occurred while sending the response.
-        $response->isSent = false;
-        $response->stream = null;
-        $response->data = null;
-        $response->content = null;
+        if (Yii::$app->has('response')) {
+            $response = Yii::$app->getResponse();
+            // reset parameters of response to avoid interference with partially created response data
+            // in case the error occurred while sending the response.
+            $response->isSent = false;
+            $response->stream = null;
+            $response->data = null;
+            $response->content = null;
+        } else {
+            $response = new Response();
+        }
 
-        $useErrorView = ($response->format === Response::FORMAT_HTML) && ($exception instanceof UserException);
+        if ($this->enableRestStatusCode) {
+            $response->setStatusCodeByException($exception);
+        }
+
+        $useErrorView = $response->format === Response::FORMAT_HTML && (!YII_DEBUG || $exception instanceof UserException);
+
         if ($useErrorView && $this->errorAction !== null) {
             $result = Yii::$app->runAction($this->errorAction);
             if ($result instanceof Response) {
@@ -30,7 +39,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
                 $response->data = $result;
             }
         } elseif ($response->format === Response::FORMAT_HTML) {
-            if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest') {
+            if ($this->shouldRenderSimpleHtml()) {
                 // AJAX request
                 $response->data = '<pre>' . $this->htmlEncode(static::convertExceptionToString($exception)) . '</pre>';
             } else {
@@ -50,37 +59,34 @@ class ErrorHandler extends \yii\web\ErrorHandler
             $response->data = $this->convertExceptionToArray($exception);
         }
 
-        if ($this->enableRestStatusCode) {
-            $statusCode = $exception instanceof HttpException ? $exception->statusCode : 500;
-            $response->setStatusCode($statusCode);
-        }
-
         $response->send();
     }
 
     protected function convertExceptionToArray($exception)
     {
-        if (!(YII_DEBUG || $exception instanceof UserException)) {
+        if (!YII_DEBUG && !$exception instanceof UserException && !$exception instanceof HttpException) {
             $exception = new HttpException(500, Yii::t('yii', 'An internal server error occurred.'));
         }
 
-        $response = [
+        $array = [
             'code' => 500,
             'data' => [],
             'message' => $exception->getMessage(),
         ];
 
         if ($exception instanceof ApiException) {
-            $response['code'] = $exception->responseCode;
-            $response['data'] = $exception->responseData;
+            $array['code'] = $exception->responseCode;
+            $array['data'] = $exception->responseData;
         } elseif ($exception instanceof HttpException) {
-            $response['code'] = $exception->statusCode;
+            $array['code'] = $exception->statusCode;
         } elseif ($exception instanceof UserException) {
-            $response['code'] = 400;
+            $array['code'] = 400;
         }
 
-        if (is_array($response['data']) && count($response['data']) === 0) {
-            $response['data'] = new \stdClass();
+        // Convert empty array `data` to stdClass,
+        // to force response `data` is always a class(especially in json format).
+        if (is_array($array['data']) && count($array['data']) === 0) {
+            $array['data'] = new \stdClass();
         }
 
         if (YII_DEBUG) {
@@ -96,9 +102,9 @@ class ErrorHandler extends \yii\web\ErrorHandler
             if (($prev = $exception->getPrevious()) !== null) {
                 $debugInfo['previous'] = $this->convertExceptionToArray($prev);
             }
-            $response['debug'] = $debugInfo;
+            $array['debug'] = $debugInfo;
         }
 
-        return $response;
+        return $array;
     }
 }
