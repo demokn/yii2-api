@@ -81,7 +81,10 @@ class ApiController extends Controller
 
         $results = [];
         foreach (array_keys($rules) as $key) {
-            $results[$key] = data_get($data, $key);
+            $key = current(explode('.', $key));
+            if (!array_key_exists($key, $results)) {
+                $results[$key] = data_get($data, $key);
+            }
         }
 
         return $results;
