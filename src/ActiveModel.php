@@ -48,7 +48,7 @@ class ActiveModel extends ActiveRecord
      */
     public static function firstOrCreate(array $attributes, array $values = [])
     {
-        $model = static::find()->where($attributes)->one();
+        $model = static::find()->andWhere($attributes)->one();
         if (!$model) {
             $model = self::create($attributes + $values);
         }
@@ -63,7 +63,7 @@ class ActiveModel extends ActiveRecord
      */
     public static function firstOrFail(array $attributes)
     {
-        $model = static::find()->where($attributes)->one();
+        $model = static::find()->andWhere($attributes)->one();
         if (!$model) {
             throw new ModelNotFoundException(sprintf('%s(%s) not found.', static::class, var_export($attributes, true)));
         }
