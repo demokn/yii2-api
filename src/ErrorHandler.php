@@ -41,7 +41,7 @@ class ErrorHandler extends \yii\web\ErrorHandler
         } elseif ($response->format === Response::FORMAT_HTML) {
             if ($this->shouldRenderSimpleHtml()) {
                 // AJAX request
-                $response->data = '<pre>' . $this->htmlEncode(static::convertExceptionToString($exception)) . '</pre>';
+                $response->data = '<pre>'.$this->htmlEncode(static::convertExceptionToString($exception)).'</pre>';
             } else {
                 // if there is an error during error rendering it's useful to
                 // display PHP error in debug mode instead of a blank screen

@@ -20,7 +20,7 @@ class ApiFilter extends ActionFilter
         return [
             'code' => $response->statusCode,
             'data' => is_array($result) && count($result) === 0 ? new \stdClass() : $result,
-            'message' => $response->statusText
+            'message' => $response->statusText,
         ];
     }
 }

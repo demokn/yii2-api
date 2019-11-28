@@ -21,7 +21,7 @@ class Validator
 
     protected function createFactory()
     {
-        $fileLoader = new FileLoader(new Filesystem(), dirname(__FILE__) . '/lang');
+        $fileLoader = new FileLoader(new Filesystem(), dirname(__FILE__).'/lang');
         $fileLoader->load('en', 'validation');
         $translator = new Translator($fileLoader, 'en');
 
@@ -41,10 +41,6 @@ class Validator
     }
 
     /**
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
      * @return \Illuminate\Validation\Validator
      */
     public static function make(array $data, array $rules, array $messages = [], array $customAttributes = [])
@@ -53,12 +49,8 @@ class Validator
     }
 
     /**
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
-     * @return array
      * @throws \Illuminate\Validation\ValidationException
+     * @return array
      */
     public static function validate(array $data, array $rules, array $messages = [], array $customAttributes = [])
     {

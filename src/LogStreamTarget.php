@@ -6,7 +6,7 @@ use yii\base\InvalidConfigException;
 use yii\log\Target;
 
 /**
- * Class LogStreamTarget
+ * Class LogStreamTarget.
  *
  * Example config
  * ```php
@@ -40,7 +40,7 @@ class LogStreamTarget extends Target
     public function init()
     {
         if (empty($this->stream)) {
-            throw new InvalidConfigException("No stream configured.");
+            throw new InvalidConfigException('No stream configured.');
         }
         if (($this->resource = @fopen($this->stream, 'w')) === false) {
             throw new InvalidConfigException("Unable to append to '{$this->stream}'");
@@ -50,7 +50,7 @@ class LogStreamTarget extends Target
     public function export()
     {
         foreach ($this->messages as $message) {
-            fwrite($this->resource, $this->formatMessage($message) . PHP_EOL);
+            fwrite($this->resource, $this->formatMessage($message).PHP_EOL);
         }
     }
 }

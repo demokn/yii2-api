@@ -11,9 +11,7 @@ trait ApiResponse
      */
     protected $statusCode = 200;
 
-    /**
-     * @return int
-     */
+
     protected function getStatusCode(): int
     {
         return $this->statusCode;
@@ -32,7 +30,7 @@ trait ApiResponse
 
     /**
      * @param $data
-     * @param array $header
+     * @param  array             $header
      * @return \yii\web\Response
      */
     protected function respond($data, $header = [])
@@ -47,7 +45,7 @@ trait ApiResponse
     }
 
     /**
-     * @param array $data
+     * @param  array             $data
      * @return \yii\web\Response
      */
     protected function success($data)
@@ -61,8 +59,8 @@ trait ApiResponse
 
     /**
      * @param $message
-     * @param int $code
-     * @param array $data
+     * @param  int               $code
+     * @param  array             $data
      * @return \yii\web\Response
      */
     protected function failed($message, $code = 400, $data = [])
@@ -75,16 +73,16 @@ trait ApiResponse
     }
 
     /**
-     * @param string $message
+     * @param  string            $message
      * @return \yii\web\Response
      */
-    protected function internalError($message = "Internal Error")
+    protected function internalError($message = 'Internal Error')
     {
         return $this->failed($message, 500);
     }
 
     /**
-     * @param string $message
+     * @param  string            $message
      * @return \yii\web\Response
      */
     protected function notFound($message = 'Not Found')

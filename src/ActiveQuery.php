@@ -5,9 +5,9 @@ namespace demokn\api;
 class ActiveQuery extends \yii\db\ActiveQuery
 {
     /**
-     * @param null $db
-     * @return array|\yii\db\ActiveRecord|null
+     * @param  null                            $db
      * @throws ModelNotFoundException
+     * @return array|\yii\db\ActiveRecord|null
      */
     public function oneOrFail($db = null)
     {

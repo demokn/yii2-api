@@ -29,11 +29,11 @@ class CmdController extends Controller
 
     public function stdoutln($string)
     {
-        return parent::stdout($string . PHP_EOL);
+        return parent::stdout($string.PHP_EOL);
     }
 
     public function stderrln($string)
     {
-        return parent::stderr($string . PHP_EOL);
+        return parent::stderr($string.PHP_EOL);
     }
 }

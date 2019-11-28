@@ -21,9 +21,8 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param array $attributes
-     * @return static
      * @throws Exception
+     * @return static
      */
     public static function create(array $attributes)
     {
@@ -41,10 +40,8 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param array $attributes
-     * @param array $values
-     * @return static
      * @throws Exception
+     * @return static
      */
     public static function firstOrCreate(array $attributes, array $values = [])
     {
@@ -57,9 +54,8 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param array $attributes
-     * @return static
      * @throws ModelNotFoundException
+     * @return static
      */
     public static function firstOrFail(array $attributes)
     {
@@ -73,8 +69,8 @@ class ActiveModel extends ActiveRecord
 
     /**
      * @param $condition
-     * @return static
      * @throws ModelNotFoundException
+     * @return static
      */
     public static function findOneOrFail($condition)
     {
@@ -87,8 +83,8 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param bool $runValidation
-     * @param null $attributeNames
+     * @param  bool      $runValidation
+     * @param  null      $attributeNames
      * @throws Exception
      */
     public function saveOrFail($runValidation = true, $attributeNames = null)
@@ -117,8 +113,7 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param bool $runValidation
-     * @param array|null $attributeNames
+     * @param  bool                         $runValidation
      * @throws Exception
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
@@ -135,7 +130,6 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param array $attributes
      * @throws Exception
      */
     public function updateAttributesOrFail(array $attributes)
@@ -151,7 +145,7 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param array $counters the counters to be updated (attribute name => increment value)
+     * @param  array     $counters the counters to be updated (attribute name => increment value)
      * @throws Exception
      */
     public function updateCountersOrFail($counters)

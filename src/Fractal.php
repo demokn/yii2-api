@@ -11,8 +11,8 @@ class Fractal extends \Spatie\Fractalistic\Fractal
     protected $serializer = ArraySerializer::class;
 
     /**
-     * @param null|mixed $data
-     * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+     * @param null|mixed                                                $data
+     * @param null|string|callable|\League\Fractal\TransformerAbstract  $transformer
      * @param null|string|\League\Fractal\Serializer\SerializerAbstract $serializer
      *
      * @return \Spatie\Fractalistic\Fractal
@@ -34,7 +34,6 @@ class Fractal extends \Spatie\Fractalistic\Fractal
     }
 
     /**
-     * @param mixed $data
      *
      * @return string
      */

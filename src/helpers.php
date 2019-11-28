@@ -2,7 +2,7 @@
 
 if (!function_exists('app')) {
     /**
-     * @param null $component
+     * @param  null                                                $component
      * @return mixed|\yii\console\Application|\yii\web\Application
      */
     function app($component = null)
@@ -17,10 +17,10 @@ if (!function_exists('app')) {
 
 if (!function_exists('make')) {
     /**
-     * @param null $abstract
-     * @return object|\yii\di\Container
+     * @param  null                             $abstract
      * @throws \yii\base\InvalidConfigException
      * @throws \yii\di\NotInstantiableException
+     * @return object|\yii\di\Container
      */
     function make($abstract = null)
     {
@@ -34,10 +34,6 @@ if (!function_exists('make')) {
 
 if (!function_exists('validator')) {
     /**
-     * @param array $data
-     * @param array $rules
-     * @param array $messages
-     * @param array $customAttributes
      * @return \Illuminate\Validation\Validator
      */
     function validator(array $data, array $rules, array $messages = [], array $customAttributes = [])
@@ -48,8 +44,8 @@ if (!function_exists('validator')) {
 
 if (!function_exists('fractal')) {
     /**
-     * @param null|mixed $data
-     * @param null|string|callable|\League\Fractal\TransformerAbstract $transformer
+     * @param null|mixed                                                $data
+     * @param null|string|callable|\League\Fractal\TransformerAbstract  $transformer
      * @param null|string|\League\Fractal\Serializer\SerializerAbstract $serializer
      *
      * @return \Spatie\Fractalistic\Fractal

@@ -76,7 +76,7 @@ class ApiController extends Controller
         if ($validator->fails()) {
             $message = '参数格式不正确';
             if (YII_DEBUG) {
-                $message .= ': ' . $validator->errors()->first();
+                $message .= ': '.$validator->errors()->first();
             }
 
             throw new UserException($message);

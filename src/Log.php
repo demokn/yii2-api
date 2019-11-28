@@ -11,7 +11,7 @@ class Log
     protected static function log($level, array $args = [])
     {
         if (count($args) === 0) {
-            throw new \InvalidArgumentException("Message can not be empty.");
+            throw new \InvalidArgumentException('Message can not be empty.');
         }
 
         foreach ($args as &$arg) {
@@ -25,7 +25,7 @@ class Log
             }
         }
 
-        $message = count($args) === 1 ? reset($args) : call_user_func_array("sprintf", $args);
+        $message = count($args) === 1 ? reset($args) : call_user_func_array('sprintf', $args);
 
         Yii::getLogger()->log($message, $level);
     }
