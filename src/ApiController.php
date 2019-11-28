@@ -2,6 +2,7 @@
 
 namespace demokn\api;
 
+use demokn\api\traits\ApiResponse;
 use Yii;
 use yii\base\UserException;
 use yii\filters\auth\CompositeAuth;
@@ -14,6 +15,8 @@ use yii\web\Response;
 
 class ApiController extends Controller
 {
+    use ApiResponse;
+
     public $enableCsrfValidation = false;
 
     public function behaviors()
