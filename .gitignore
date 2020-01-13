@@ -29,6 +29,9 @@ phpunit.phar
 # local phpunit config
 /phpunit.xml
 
+# php-cs-fixer cache file
+.php_cs.cache
+
 # local tests configuration
 /tests/data/config.local.php
 

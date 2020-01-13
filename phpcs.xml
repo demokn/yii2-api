@@ -13,4 +13,5 @@
     </rule>
 
     <exclude-pattern>/vendor/</exclude-pattern>
+    <exclude-pattern>/src/gii/</exclude-pattern>
 </ruleset>

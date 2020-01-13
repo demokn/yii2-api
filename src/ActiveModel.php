@@ -24,11 +24,11 @@ class ActiveModel extends ActiveRecord
      * @throws Exception
      * @return static
      */
-    public static function create(array $attributes)
+    public static function create(array $attributes, bool $safeOnly = false)
     {
         $model = new static();
         $model->loadDefaultValues();
-        $model->setAttributes($attributes, false);
+        $model->setAttributes($attributes, $safeOnly);
 
         if (!$model->validate()) {
             throw new Exception(sprintf('Model "%s" attributes validate failed: %s', get_class($model), current($model->firstErrors)));
@@ -113,12 +113,11 @@ class ActiveModel extends ActiveRecord
     }
 
     /**
-     * @param  bool                         $runValidation
      * @throws Exception
      * @throws \Throwable
      * @throws \yii\db\StaleObjectException
      */
-    public function updateOrFail($runValidation = true, array $attributeNames = null)
+    public function updateOrFail(bool $runValidation = true, array $attributeNames = null)
     {
         $rows = $this->update($runValidation, $attributeNames);
 
