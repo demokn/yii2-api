@@ -24,6 +24,8 @@ echo "<?php\n";
 
 namespace <?= $generator->queryNs ?>;
 
+use demokn\api\ModelNotFoundException;
+
 /**
  * This is the ActiveQuery class for [[<?= $modelFullClassName ?>]].
  *
