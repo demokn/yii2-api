@@ -6,6 +6,7 @@ use Illuminate\Filesystem\Filesystem;
 use Illuminate\Translation\FileLoader;
 use Illuminate\Translation\Translator;
 use Illuminate\Validation\Factory;
+use Yii;
 
 class Validator
 {
@@ -19,11 +20,16 @@ class Validator
         $this->factory = $this->createFactory();
     }
 
+    protected function getDefaultTranslator()
+    {
+        return new Translator(new FileLoader(new Filesystem(), dirname(__FILE__).'/lang'), 'en');
+    }
+
     protected function createFactory()
     {
-        $fileLoader = new FileLoader(new Filesystem(), dirname(__FILE__).'/lang');
-        $fileLoader->load('en', 'validation');
-        $translator = new Translator($fileLoader, 'en');
+        $translator = Yii::$container->has('validation.translator')
+            ? Yii::$container->get('validation.translator')
+            : $this->getDefaultTranslator();
 
         return new Factory($translator);
     }
