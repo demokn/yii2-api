@@ -19,6 +19,8 @@ class ApiController extends Controller
 
     public $enableCsrfValidation = false;
 
+    public $displayValidationErrors = YII_DEBUG;
+
     public function behaviors()
     {
         return [
@@ -66,30 +68,38 @@ class ApiController extends Controller
         return [];
     }
 
-    protected function validate(array $rules, array $data = null)
+    protected function formatValidationFailsMessage(\Illuminate\Validation\Validator $validator)
+    {
+        $message = '参数格式不正确';
+        if ($this->displayValidationErrors) {
+            $message .= ': '.$validator->errors()->first();
+        }
+
+        return $message;
+    }
+
+    protected function handleValidationFails(\Illuminate\Validation\Validator $validator)
+    {
+        throw new UserException($this->formatValidationFailsMessage($validator));
+    }
+
+    protected function getAllRequestParams()
+    {
+        return Yii::$app->getRequest()->getBodyParams()
+            + Yii::$app->getRequest()->getQueryParams();
+    }
+
+    protected function validate(array $rules, array $data = null, array $customAttributes = [], array $messages = [])
     {
         if (is_null($data)) {
-            $data = Yii::$app->getRequest()->getBodyParams();
+            $data = $this->getAllRequestParams();
         }
 
-        $validator = Validator::make($data, $rules);
+        $validator = Validator::make($data, $rules, $messages, $customAttributes);
         if ($validator->fails()) {
-            $message = '参数格式不正确';
-            if (YII_DEBUG) {
-                $message .= ': '.$validator->errors()->first();
-            }
-
-            throw new UserException($message);
+            $this->handleValidationFails($validator);
         }
 
-        $results = [];
-        foreach (array_keys($rules) as $key) {
-            $key = current(explode('.', $key));
-            if (!array_key_exists($key, $results)) {
-                $results[$key] = data_get($data, $key);
-            }
-        }
-
-        return $results;
+        return $validator->validated();
     }
 }
